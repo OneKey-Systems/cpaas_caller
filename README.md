@@ -35,9 +35,8 @@ This application solves them in the following manner:
 is not configured with any application either. This means any
 incoming call is rejected.
 
-* We let users request a call, but we only allow authorized
-users to request said calls. We use this with an authorization
-code that has a use limit.
+* We only let authorized users request calls. To authenticate
+they must provide an access token (which we can create).
 
 The idea is that if you want to show our cool stuff to a soon to
 be client you can give him a code for him to try out our demos.
