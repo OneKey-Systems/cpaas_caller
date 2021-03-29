@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+    <changeSet id="1" author="Antonio Aguilar">
+        <createTable tableName="access_tokens">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" primaryKeyName="access_token_pk"/>
+            </column>
+            <column name="token" type="varchar">
+                <constraints unique="true" uniqueConstraintName="access_token_token_uniq"/>
+            </column>
+            <column name="uses_left" type="int"/>
+        </createTable>
+        <createTable tableName="handler_servers">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" primaryKeyName="handler_server_pk"/>
+            </column>
+            <column name="url" type="varchar">
+                <constraints unique="true" uniqueConstraintName="handler_server_url_uniq"/>
+            </column>
+        </createTable>
+        <createTable tableName="routes">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" primaryKeyName="route_pk"/>
+            </column>
+            <column name="handler_id" type="bigint"/>
+            <column name="route" type="varchar"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="routes" baseColumnNames="handler_id"
+                                 constraintName="routes-handler_servers-fk"
+                                 referencedTableName="handler_servers"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
