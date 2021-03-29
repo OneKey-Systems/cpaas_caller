@@ -4,11 +4,13 @@ import mx.onekey.dev.cpaas.api.configuration.ZangConfiguration
 import mx.onekey.dev.cpaas.api.connectors.CallsConnector
 import mx.onekey.dev.cpaas.api.connectors.ZangConnectorFactory
 import mx.onekey.dev.cpaas.api.params.MakeCallParams
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.shell.standard.ShellComponent
 import org.springframework.shell.standard.ShellMethod
 
 @ShellComponent
-class CallCommands(zangConfiguration: ZangConfiguration) {
+class CallCommands(zangConfiguration: ZangConfiguration,
+                   @Value("\${avaya.cpaas.from.phone}") private val fromPhone: String) {
 
     val callsConnector: CallsConnector = ZangConnectorFactory.getCallsConnector(zangConfiguration)
 
@@ -16,7 +18,7 @@ class CallCommands(zangConfiguration: ZangConfiguration) {
     fun callWithLink(phone: String, link: String) {
         callsConnector.makeCall(MakeCallParams.builder()
                 .setTo(phone)
-                .setFrom("+16178125467")
+                .setFrom(fromPhone)
                 .setUrl(link)
                 .build()
         )
