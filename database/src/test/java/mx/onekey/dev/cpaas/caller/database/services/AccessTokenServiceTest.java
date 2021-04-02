@@ -35,8 +35,11 @@ public class AccessTokenServiceTest {
         AccessToken invalidToken = accessTokenService.createToken(12, 0);
         assert !accessTokenService.isValid(invalidToken.getToken());
 
-        accessTokenService.invalidate(validToken);
+        accessTokenService.invalidate(validToken.getToken());
         assert !accessTokenService.isValid(validToken.getToken());
+
+        accessTokenService.enable(validToken.getToken());
+        assert accessTokenService.isValid(validToken.getToken());
     }
 
     @Test
@@ -47,5 +50,4 @@ public class AccessTokenServiceTest {
         assert accessToken.getUsesLeft() == 0;
         assert !accessTokenService.isValid(accessToken);
     }
-
 }

@@ -58,4 +58,12 @@ public class AccessToken {
     public void setValid(boolean valid) {
         isValid = valid;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Id: %d\n" +
+                "Token: %s\n" +
+                "Uses: %d\n" +
+                "Enabled: %s", id, token, usesLeft, isValid);
+    }
 }

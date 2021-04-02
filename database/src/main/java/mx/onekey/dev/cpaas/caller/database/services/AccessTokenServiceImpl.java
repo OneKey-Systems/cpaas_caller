@@ -32,7 +32,6 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     @Override
     public boolean isValid(String token) {
         Optional<AccessToken> accessTokenOptional = accessTokenRepository.findByToken(token);
-
         return accessTokenOptional.filter(this::isValid).isPresent();
     }
 
@@ -50,6 +49,20 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     @Override
     public AccessToken invalidate(AccessToken accessToken) {
         accessToken.setValid(false);
+        accessTokenRepository.save(accessToken);
+
+        return accessToken;
+    }
+
+    @Override
+    public AccessToken enable(String token) {
+        Optional<AccessToken> accessTokenOptional = accessTokenRepository.findByToken(token);
+        return accessTokenOptional.map(this::enable).orElse(null);
+    }
+
+    @Override
+    public AccessToken enable(AccessToken accessToken) {
+        accessToken.setValid(true);
         accessTokenRepository.save(accessToken);
 
         return accessToken;

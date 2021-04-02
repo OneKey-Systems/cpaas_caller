@@ -8,5 +8,7 @@ public interface AccessTokenService {
     boolean isValid(AccessToken accessToken);
     AccessToken invalidate(String token);
     AccessToken invalidate(AccessToken accessToken);
+    AccessToken enable(String token);
+    AccessToken enable(AccessToken accessToken);
     void use(AccessToken accessToken);
 }

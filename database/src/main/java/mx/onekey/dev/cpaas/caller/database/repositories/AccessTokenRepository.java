@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface AccessTokenRepository extends CrudRepository<AccessToken, Long> {
     Optional<AccessToken> findByToken(String token);
+    void deleteByToken(String token);
 }
