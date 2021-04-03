@@ -61,7 +61,7 @@ public class AccessToken {
 
     @Override
     public String toString() {
-        return String.format("Id: %d\n" +
+        return String.format("ID: %d\n" +
                 "Token: %s\n" +
                 "Uses: %d\n" +
                 "Enabled: %s", id, token, usesLeft, isValid);
